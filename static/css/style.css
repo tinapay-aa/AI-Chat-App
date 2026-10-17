@@ -48,6 +48,118 @@ table {
     font-family: 'Poppins', sans-serif;
 }
 
+button, .button {
+    border: none;
+    border-radius: .5rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    min-height: 2rem;
+    padding: .5rem 1rem;
+
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(3px);
+
+    font-size: medium;
+
+    svg {
+        fill: black;
+    }
+
+    transition: .3s ease;
+}
+button:hover, .button:hover {
+    background: rgba(189, 189, 189, 0.3);
+    transform: translateY(2px);
+}
+
 body {
-    background: #FFFFF0;
+    align-items: center;
+    justify-content: center;
+    background: url(../img/background-veil.png);
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed red;
+
+
+    width: 100vw;
+    height: 100vh;
+}
+.content-container {
+    display: grid;
+    grid-template-rows: 8% auto;
+    padding: 1em;
+
+    border-radius: 1.5rem;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .5);
+
+    min-width: 60%;
+    min-height: 80%;
+    
+    transition: .3s ease;
+}
+.content-container:hover {
+    backdrop-filter: blur(20px);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, .5);
+
+}
+
+.chat-section {
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+.input-section {
+    border: 1px dashed blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: auto;
+
+    #input-form {
+        border: 1px dashed cyan;
+        width: 40%;
+
+        textarea {
+            border: none;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.5);
+
+            box-sizing: border-box;
+            margin-bottom: .5rem;
+            width: 100%;
+            padding: 1rem .5rem;
+
+            font-size: medium;
+        }
+
+        .btn-wrapper {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+
+#clear-btn:hover {
+    background: rgba(255, 0, 0, .3);
+    box-shadow: 0 0 8px red;
+}
+#send-btn:hover {
+    background: rgba(0, 255, 0, .3);
+    box-shadow: 0 0 8px green;
 }
