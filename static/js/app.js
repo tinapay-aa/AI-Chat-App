@@ -1,54 +1,66 @@
 const sendbtn = document.getElementById('send-btn')
 const csrfToken = document.querySelector(
-    "[name=csrfmiddlewaretoken"
+    "[name=csrfmiddlewaretoken]"
 ).value;
 const form = document.getElementById('input-form')
 
-function addMessage(sender, message) {
-    const messages_section = document.getElementById('messages-section');
-    const message_div = document.createElement('div');
-    const message_span = document.createElement('span');
+function addMessage(sender, text, isMarkdown = false) {
+    const message = document.createElement("div");
+    message.classList.add("message", sender);
 
-    message_div.classList.add('message')
-    if (sender == 'user') {
-        message_div.classList.add('user')
-    }
-    else {
-        message_div.classList.add('assistant')
-    }
-    message_span.textContent = message
+    const content = document.createElement("div");
 
-    message_div.appendChild(message_span);
-    messages_section.appendChild(message_div);
+    if (isMarkdown) {
+        content.classList.add("markdown-content");
+        content.innerHTML = DOMPurify.sanitize(marked.parse(text));
+    } else {
+        content.textContent = text;
+    }
+
+    message.appendChild(content);
+    document.getElementById("messages-section").appendChild(message);
 }
 
 document.getElementById("input-form").addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    sendbtn.toggleAttribute('disabled')
-
+    const form = event.currentTarget;
+    const sendbtn = document.getElementById("send-btn");
     const input = document.getElementById("input-area");
     const message = input.value.trim();
 
     if (!message) return;
 
-    form_data = new FormData(form);
-    input.value = "";
+    sendbtn.disabled = true;
 
-    addMessage("user", message);
+    try {
+        const form_data = new FormData(form);
+        input.value = "";
 
-    const response = await fetch('/gem/', {
-        method: 'POST',
-        headers: {
-            "X-CSRFToken": csrfToken
-        },
-        body: form_data
-    });
+        addMessage("user", message);
 
-    response_data = await response.json();
+        const response = await fetch("/gem/", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrfToken
+            },
+            body: form_data
+        });
 
-    addMessage("assistant", response_data.reply);
-    sendbtn.toggleAttribute('disabled');
+        if (!response.ok) {
+            throw new Error(`Request failed: ${response.status}`);
+        }
+
+        const response_data = await response.json();
+
+        addMessage("assistant", response_data.reply, true);
+
+    } catch (error) {
+        console.error("Error:", error);
+        addMessage("assistant", "Sorry, something went wrong. Please try again.");
+    } finally {
+        sendbtn.disabled = false;
+    }
 });
 
 function clearInputArea() {

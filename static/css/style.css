@@ -154,7 +154,7 @@ body {
         overflow-wrap: anywhere;
         white-space: pre-wrap;
 
-        span {
+        div {
             border-radius: 1rem;
             background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(3px);
@@ -307,4 +307,35 @@ button:disabled{
         background: rgba(0, 255, 0, .3);
         box-shadow: 0 0 8px green;
     }
+}
+
+.markdown-content {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+    margin: 1rem 0 0.5rem;
+}
+
+.markdown-content p {
+    margin: 0.5rem 0;
+}
+
+.markdown-content pre {
+    overflow-x: auto;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.markdown-content code {
+    overflow-wrap: anywhere;
+}
+
+.markdown-content img {
+    max-width: 100%;
 }
