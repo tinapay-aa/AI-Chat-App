@@ -29,6 +29,9 @@ document.getElementById("input-form").addEventListener("submit", async (event) =
 
     if (!message) return;
 
+    form_data = new FormData(form);
+    input.value = "";
+
     addMessage("user", message);
 
     const response = await fetch('/gem/', {
@@ -36,14 +39,13 @@ document.getElementById("input-form").addEventListener("submit", async (event) =
         headers: {
             "X-CSRFToken": csrfToken
         },
-        body: new FormData(form)
+        body: form_data
     });
 
     response_data = await response.json();
 
     addMessage("assistant", response_data.reply)
 
-    input.value = "";
 });
 
 function clearInputArea() {
