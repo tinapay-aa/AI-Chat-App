@@ -92,7 +92,8 @@ body {
 }
 .content-container {
     display: grid;
-    grid-template-rows: 8% auto;
+    grid-template-rows: 8% minmax(0, 1fr);
+    gap: 1em;
     padding: 1em;
 
     border-radius: 1.5rem;
@@ -104,6 +105,8 @@ body {
     min-height: 80%;
     max-width: 60%;
     max-height: 80%;
+
+    overflow: hidden;
     
     transition: .3s ease;
 }
@@ -128,20 +131,28 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+    overflow: hidden;
+    min-height: 0;
 }
 .messages-section {
+    box-sizing: border-box;
     display: flex;
+    flex: 1 1 0;
     flex-direction: column;
     gap: 10px;
 
     box-sizing: border-box;
     width: 100%;
-    height: 100%;
+    min-height: 0;
+    margin-bottom: 10px;
 
     overflow-y: auto;
+    overflow-x: hidden;
 
     .message {
         display: flex;
+        overflow-wrap: anywhere;
+        white-space: pre-wrap;
 
         span {
             border-radius: 1rem;
@@ -152,7 +163,7 @@ body {
             height: auto;
             padding: 1rem;
 
-            max-width: 50%;
+            max-width: 80ch;
         }
     }
     .user {
@@ -211,7 +222,10 @@ button:disabled{
         background-attachment: fixed;
     }
     .content-container {
-        grid-template-rows:  60px auto;
+        height: 100dvh;
+        min-height: 0;
+        max-height: 100dvh;
+        grid-template-rows:  60px minmax(0, 1fr);
         box-sizing: border-box;
         border-radius: 0;
         backdrop-filter: blur(10px);
@@ -231,6 +245,11 @@ button:disabled{
 
     .top-section {
         border-bottom: 1px solid rgba(255, 255, 255, .8);
+    }
+
+    .chat-section {
+        min-height: 0;
+        overflow: hidden;
     }
 
     .input-section {
@@ -276,6 +295,9 @@ button:disabled{
         }
     }
 
+    .message {
+        max-width: 45ch;
+    }
 
     #clear-btn:hover {
         background: rgba(255, 0, 0, .3);
