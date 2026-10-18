@@ -1,3 +1,4 @@
+const sendbtn = document.getElementById('send-btn')
 const csrfToken = document.querySelector(
     "[name=csrfmiddlewaretoken"
 ).value;
@@ -24,6 +25,8 @@ function addMessage(sender, message) {
 document.getElementById("input-form").addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    sendbtn.toggleAttribute('disabled')
+
     const input = document.getElementById("input-area");
     const message = input.value.trim();
 
@@ -44,10 +47,11 @@ document.getElementById("input-form").addEventListener("submit", async (event) =
 
     response_data = await response.json();
 
-    addMessage("assistant", response_data.reply)
-
+    addMessage("assistant", response_data.reply);
+    sendbtn.toggleAttribute('disabled');
 });
 
 function clearInputArea() {
-
+    const inputArea = document.getElementById('input-area');
+    inputArea.value = "";
 }

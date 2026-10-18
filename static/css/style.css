@@ -199,6 +199,9 @@ body {
     background: rgba(0, 255, 0, .3);
     box-shadow: 0 0 8px green;
 }
+button:disabled{
+    background: rgba(116, 116, 116, 0.5);
+}
 
 @media (max-width: 767px){
     body {
