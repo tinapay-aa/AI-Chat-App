@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'chat_app.apps.ChatAppConfig',
+    
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +135,30 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+# PWA Settings
+PWA_APP_NAME = 'Gem Chat'
+PWA_APP_DESCRIPTION = "A Progressive Web App version of Gem Chat"
+PWA_APP_THEME_COLOR = '#0A0A0A'
+PWA_APP_BACKGROUND_COLOR = '#FFFFFF'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'portrait'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+
+PWA_APP_ICONS = [
+    {
+        'src': '/static/img/logo.png',
+        'sizes': '512x512'
+    }
+]
+
+PWA_APP = [{
+    'src':'/static/img/ss.png',
+    'sizes': '460x962',
+    'type':'image/png'
+}]
+
+PWA_APP_DIR = 'ltr'
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static', 'js', 'serviceworker.js')
