@@ -1,3 +1,8 @@
+const csrfToken = document.querySelector(
+    "[name=csrfmiddlewaretoken"
+).value;
+const form = document.getElementById('input-form')
+
 function addMessage(sender, message) {
     const messages_section = document.getElementById('messages-section');
     const message_div = document.createElement('div');
@@ -25,6 +30,19 @@ document.getElementById("input-form").addEventListener("submit", async (event) =
     if (!message) return;
 
     addMessage("user", message);
+
+    const response = await fetch('/gem/', {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": csrfToken
+        },
+        body: new FormData(form)
+    });
+
+    response_data = await response.json();
+
+    addMessage("assistant", response_data.reply)
+
     input.value = "";
 });
 
